@@ -8,6 +8,8 @@ type PersonStore = {
   error: string | null;
   getPersons: () => Promise<void>;
   deletePerson: (id: number) => Promise<void>;
+  createPerson: (person: Person) => Promise<void>;
+  updatePerson: (person: Person) => Promise<void>;
 };
 
 const URL = "http://localhost:3001/api/data";
@@ -33,6 +35,30 @@ const usePersonStore = create<PersonStore>((set) => ({
       await axios.delete(`${URL}/${id}`);
       set((state) => ({
         persons: state.persons.filter((person) => person.id !== id),
+        error: null,
+      }));
+    } catch (err) {
+      set({ error: err as string });
+    }
+  },
+  createPerson: async (person: Person) => {
+    try {
+      const resp = await axios.post(URL, person);
+      const newPerson = resp.data;
+      console.log("newPers: ", newPerson);
+      set((state) => ({
+        persons: [...state.persons, newPerson],
+        error: null,
+      }));
+    } catch (err) {
+      set({ error: err as string });
+    }
+  },
+  updatePerson: async (person: Person) => {
+    try {
+      await axios.put(`${URL}/${person.id}`, person);
+      set((state) => ({
+        persons: state.persons.map((p) => (p.id === person.id ? person : p)),
         error: null,
       }));
     } catch (err) {
