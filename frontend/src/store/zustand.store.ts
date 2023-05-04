@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { Person } from "./types/person";
+import { Person } from "../types/person";
 
 type PersonStore = {
   persons: Person[];
@@ -45,7 +45,6 @@ const usePersonStore = create<PersonStore>((set) => ({
     try {
       const resp = await axios.post(URL, person);
       const newPerson = resp.data;
-      console.log("newPers: ", newPerson);
       set((state) => ({
         persons: [...state.persons, newPerson],
         error: null,
