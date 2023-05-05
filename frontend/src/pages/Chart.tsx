@@ -1,16 +1,8 @@
 import { Pie } from "@ant-design/plots";
 import { Button } from "antd";
 import City from "../types/cityCount";
-import { useEffect } from "react";
-import usePersonStore from "../store/zustand.store";
 
 const Chart = ({ chartData }: { chartData: City[] }) => {
-  const { persons } = usePersonStore();
-
-  useEffect(() => {
-    console.log("Chart data changed:", chartData);
-  }, [chartData, persons]);
-
   const config = {
     appendPadding: 10,
     angleField: "amount",
