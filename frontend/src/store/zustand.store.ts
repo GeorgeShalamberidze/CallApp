@@ -12,6 +12,10 @@ type PersonStore = {
   updatePerson: (person: Person) => Promise<void>;
 };
 
+type PersonStoreSubscribers = {
+  subscribe: (callback: () => void) => () => void;
+};
+
 const URL = "http://localhost:3001/api/data";
 
 const usePersonStore = create<PersonStore>((set) => ({

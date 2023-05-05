@@ -1,7 +1,7 @@
 import { Person } from "../types/person";
 import { Table, FormInstance } from "antd";
 
-const TableComp = ({
+const AntTable = ({
   columns,
   data,
   setIsModalEdit,
@@ -36,4 +36,4 @@ const TableComp = ({
   );
 };
 
-export default TableComp;
+export default AntTable;
